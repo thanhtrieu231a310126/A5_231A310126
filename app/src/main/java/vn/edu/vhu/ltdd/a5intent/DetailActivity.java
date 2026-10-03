@@ -2,6 +2,7 @@ package vn.edu.vhu.ltdd.a5intent;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -14,14 +15,14 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class DetailActivity extends AppCompatActivity {
-
+    private static final String TAG = "A5_231A310126";
     private Contact contact;
     private EditText edtHoTenMoi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Log.d(TAG, "DetailActivity onCreate");
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_detail);
 
@@ -113,4 +114,33 @@ public class DetailActivity extends AppCompatActivity {
         setResult(RESULT_OK, data);
         finish();
     }
+@Override
+protected void onStart() {
+    super.onStart();
+    Log.d(TAG, "DetailActivity onStart");
+}
+
+@Override
+protected void onResume() {
+    super.onResume();
+    Log.d(TAG, "DetailActivity onResume");
+}
+
+@Override
+protected void onPause() {
+    super.onPause();
+    Log.d(TAG, "DetailActivity onPause");
+}
+
+@Override
+protected void onStop() {
+    super.onStop();
+    Log.d(TAG, "DetailActivity onStop");
+}
+
+@Override
+protected void onDestroy() {
+    Log.d(TAG, "DetailActivity onDestroy");
+    super.onDestroy();
+}
 }

@@ -14,6 +14,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.content.IntentCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -96,7 +97,17 @@ public class MainActivity extends AppCompatActivity {
         edtDienThoai = findViewById(R.id.edtDienThoai);
         edtEmail = findViewById(R.id.edtEmail);
         tvKetQuaTraVe = findViewById(R.id.tvKetQuaTraVe);
+        Intent incomingIntent = getIntent();
 
+        if (Intent.ACTION_SEND.equals(incomingIntent.getAction())
+                && "text/plain".equals(incomingIntent.getType())) {
+
+            String sharedText = incomingIntent.getStringExtra(Intent.EXTRA_TEXT);
+
+            if (sharedText != null && !sharedText.isEmpty()) {
+                edtHoTen.setText(sharedText);
+            }
+        }
         Button btnChiTiet = findViewById(R.id.btnChiTiet);
         Button btnGoi = findViewById(R.id.btnGoi);
         Button btnWeb = findViewById(R.id.btnWeb);
@@ -130,7 +141,14 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_CONTACT, contact);
         intent.putExtra(EXTRA_NGUOI_GUI, TAG);
 
-        chiTietLauncher.launch(intent);
+        ActivityOptionsCompat options =
+                ActivityOptionsCompat.makeCustomAnimation(
+                        this,
+                        R.anim.slide_in_right,
+                        R.anim.slide_out_left
+                );
+
+        chiTietLauncher.launch(intent, options);
     }
 
     private void goiDien() {
